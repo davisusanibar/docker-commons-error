@@ -1,0 +1,26 @@
+To check current Docker storage:
+[dsusanibar@test mesostmp]$ sudo ls -alhs /var/lib/docker/devicemapper/devicemapper
+total 4.8G
+   0 drwx------. 2 root root   32 Aug 22 12:24 .
+   0 drwx------. 5 root root   50 Aug 22 12:27 ..
+4.8G -rw-------. 1 root root 100G Aug 22 16:07 data
+7.0M -rw-------. 1 root root 2.0G Aug 22 16:22 metadata
+
+To mount an additional hard disk:
+[dsusanibar@test mesostmp]$
+sudo mkdir /mnt/docker
+sudo cat /proc/partitions
+sudo mkfs -t ext4 /dev/xvdb
+sudo mount -t ext4 /dev/xvdb /mnt
+
+To register tha continuo working after restarting:
+sudo blkid -o list
+>>>/dev/xvdb                             ext4                         /mnt                                      e1a9e7fa-6311-44ed-b964-61126af109d9
+sudo vim /etc/fstab
+UUID=e1a9e7fa-6311-44ed-b964-61126af109d9 /mnt ext4 defaults 1 2
+
+To create a data symbolic:
+//Docker is running
+sudo mkdir -p /var/lib/docker/devicemapper/devicemapper
+sudo ln -s /mnt/docker /var/lib/docker/devicemapper/devicemapper/data
+//Restart docker
