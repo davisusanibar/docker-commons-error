@@ -13,6 +13,9 @@ sudo cat /proc/partitions
 sudo mkfs -t ext4 /dev/xvdb
 sudo mount -t ext4 /dev/xvdb /mnt
 
+This process shoul be executed at first time when you are trying to create you docker service:
+[david@docker]$ sudo rm -rf /var/lib/docker/
+
 To register tha continuo working after restarting:
 sudo blkid -o list
 >>>/dev/xvdb                             ext4                         /mnt                                      e1a9e7fa-6311-44ed-b964-61126af109d9
